@@ -2,15 +2,27 @@
 
 Table of contents
 ==============
+* [Ruby](https://github.com/Hyooojin/sinatra/tree/master/sinatra_1)
 * [Rails](#rails)
 * [MVC Architecture](#mvc-architecture )
 	* [models](#models)
 	* [Views](#views)
 	* [Controllers](#controllers)
 * [Revenge Create a web site](#revenge-create-a-web-site)
-	* [Preferences](#preferences)
+	* [Settings](#settings)
 		* [Gemfile Settings](#gemfile-settings)
 		* [Controller Settings](#controller-settings)
+		* [Model Settings](#modle-settings)
+* [Fake Asked Homepage](#fake-asked-homepage)
+	* [Basic Web Site](#basic-web-site)
+		* [Routing](#routing)
+		* [Methods](#methods)
+		* [Views](#views)
+	* [Use DataBase](#use-database)
+	* 	* [Models](#models)
+		* [Routing](#routing)
+		* [Methods](#methods)
+		* [Views](#views)
 
 Rails
 =======
@@ -41,116 +53,239 @@ MVC Architecture
 
 Revenge Create a web site
 ==============
-## Preferences
-### Gemfile Settings
-  * Gemfile에 gem을 install하여 기본적인 환경을 set-up 한다. 
-  ```
+## Settings
+#### Gemfile Settings 
+* Gemfile에 gem을 install하여 기본적인 환경을 set-up 한다. 
+```
   gem 'rails_db'
   gem 'awesome_print'
   gem 'pry-rails'
-  ```
+```
 
-  *  새로운 gem을 설치한 후, 다음 명령문으로 새로운 환경을 set-up 해준다.
-
-    ```
-    $ bundle install
-    ```
-  ```
-
-  ```
-* Controller Settings
-  * controller 설정
-  ```
+*  새로운 gem을 설치한 후, 다음 명령문으로 새로운 환경을 set-up 해준다.
+```
+  $ bundle install
+```
+    
+#### Controller Settings
+* Controller 설정 
+```
   $ rails g controller question index show
-  ```
-  index, show가 routes.rb에 저절로 설정<br/>
-  veiw에는 index.erb와 show.erb가 생성<br/>
-  controller에는 index, show 메소드가 정의된다.
+```
+index, show가 routes.rb에 저절로 설정<br/>
+veiw에는 index.erb와 show.erb가 생성<br/>
+controller에는 index, show 메소드가 정의된다.
 
-    * config에 생성된 routes.rb를 확인
-      이곳에서 **라우팅**을 한다. 
-      <br/>
-      기본root를 index로 설정
-      ```
-      root 'question#index'
-      ```
-        get 'question/index'
-        get 'question/show'
-      ```
-      다른 index와 show는 이런식으로 라우팅 된다. <br/>
-      이후에 정의되는 method들은 수동으로 추가!
-      ```
+* config에 생성된 routes.rb를 확인
+이곳에서 **라우팅**을 한다. 
+<br/>
+		* 기본root를 index로 설정
+```
+  root 'question#index'
+```
+		* root 이외의 라우팅
+```
+  get 'question/index'
+  get 'question/show'
+```
+다른 index와 show는 이런식으로 라우팅 된다. <br/>
+이후에 정의되는 method들은 수동으로 추가!
+<br/><br/>
 
-  * views의 question폴더 확인
-    * controller를 만들 때 입력한 question으로, 폴더가 생성된 것을 볼 수 있고, index와 show veiw가 생성되어 있는 것을 확인 할 수 있다. <br/><br/>
+* views의 question폴더 확인
+controller를 만들 때 입력한 question으로, 폴더가 생성된 것을 볼 수 있고, index와 show veiw가 생성되어 있는 것을 확인 할 수 있다. <br/><br/>
 
-* 모델 설치
-  * model 설정
-   ```
-   $ rails g moder questionr
-   ```
-   * db의 migrate에 생겨난 create_questions.rb가 생성되었는지 확인 후, 칼럼 정의<br/>
-   * 칼럼 정의
-  ```
+### Model Settings
+* model 설정
+```
+  $ rails g moder question
+```
+db의 migrate에 생겨난 create_questions.rb가 생성되었는지 확인 후, 칼럼 정의<br/>
+* 칼럼 정의
+```
   t.string :name
   t.stirng :content
-  ```
-  * name과 content라는 col을 정의하였다. 
+```
+name과 content라는 col을 정의하였다. 
 
-  ```
+```
   create_table "questions", force: :cascade do |t|
     	t.string   "name"
     	t.string   "content"
     	t.datetime "created_at", null: false
     	t.datetime "updated_at", null: false
   	end
-  ```
-  * 다음 명령문을 입력한 해 table을 생성 후, 생성된 스키마를 schema.rb에서 확인
-  ```
+```
+* 다음 명령문을 입력한 해 table을 생성 후, 생성된 스키마를 schema.rb에서 확인
+```
   rake db:migrate
-  ```
-  * Table에는 기본적으로 제공되는 id칼럼과 name, content, created_at, updated_at 총 5칼럼이 생성되게 된다. <br/>
-    즉, 2개의 컬럼을 만들었지만, 5개의 컬럼을 이용할 수 있게된다.
-    <br/><br/>
+```
+Table에는 기본적으로 제공되는 id칼럼과 name, content, created_at, updated_at 총 5칼럼이 생성되게 된다. <br/>
+즉, 2개의 컬럼을 만들었지만, 5개의 컬럼을 이용할 수 있게된다.
+<br/><br/>
 
 
 기본적인 설치작업이 끝나면 본격적으로 Website를 구현한다. 
 
 
+Fake Asked Homepage
+============
+##Basic Web Site
+* User에게 질문을 입력받는다.
+* 질문을 입력한 후, 질문자에게 질문자의 질문과 이름을 보여지게 한다.
+#### Routing
 * 라우트 설정
-  * 기본적으로 순서는 이러하다. <br/> 
-    (1) routes.rb에서 라우팅을 한다.<br/>
-    (2) question_controller.rb에서 method를 정의한다. <br/>
-    (3) 그 후, view파일을 만들면 web이 동작하게 된다.<br/>
-    <br/>
-    ```
-    	  root 'question#index'
+기본적으로 순서는 이러하다. <br/> 
+(1) routes.rb에서 라우팅을 한다.<br/>
+(2) question_controller.rb에서 method를 정의한다. <br/>
+(3) 그 후, view파일을 만들면 web이 동작하게 된다.<br/>
+<br/>
 
-    	  get 'question/index'
+```
+  root 'question#index'
+  get 'question/index'
+  get 'question/show'
+```
+root를 설정하고, index와 show가 정의되어 있는 것을 확인<br/>
 
-    	  get 'question/show'
-    ```
-    root를 설정하고, index와 show가 정의되어 있는 것을 확인
-
+#### Methods
 * method 정의
-  * method를 정의한다
-  ```
+method를 정의한다
+```
   def index
   end
 
   def show
   end
+```
+index와 show안에 method 내용을 정의한다.
+* index method
+```def index
+```
+user에게 입력받은 값을 보여준다. 
 
-  ```
-  * index와 show안에 method 내용을 정의한다.
-  * index method
-    * user에게 입력받은 값을 보여준다. 
-    * ​
-  * show method
+* show method
+User에게 입력받은 값을 User가 확인할 수 있도록 한다. 
+```
+def show
+	@name = params[:name]
+	@question = params[:question]
+end
+```
+#### Views
+* index.erb
+```
+<h1>fake-asked에 오신걸 환영합니다.</h1>
+<p>질문을 작성해주세요.</p>
+
+<form action="/question/show">
+    작성자:<input type="text" name="name"><br/>
+    질문:<input type="text" name="content"><br/>
+    <input type="submit" value="질문하기">
+</form>
+```
+* show.erb
+```
+작성자<%=@name%>
+질문내용<%=@question%>
+```
+
+## Use DataBase
+* User에게 입력받은 질문을 Database에 저장할 수 있도록 한다.
+* 입력받은 값을 첫번째 root페이지에 계속 확인할 수 있도록 한다.
+
+#### Modles
+* Question 테이블 생성
+```
+$ rails g model question
+```
+* db폴더의 migrate에서 create_questions.rb에서 컬럼을 추가
+```
+t.string :name
+t.string :content
+```
+name컬럼과 content컬럼을 추가한다.
+* 명령문을 입력해, table을 재생성
+```
+$ rake db:maigrate
+```
+* db폴더의 schema.rb를 확인
+```
+  create_table "questions", force: :cascade do |t|
+    t.string   "name"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+```
+
+#### Routing
+* 라우팅은 변화 없다.
+index, show
+
+#### Methods
+* 질문자가 입력한 질문들을 데이터 베이스에 저장한다.
+* 받아 온 값들을 각각 컬럼의 row에 저장될 수 있도록 한다.
+* root page에서 입력받은 값을 확인할 수 있기 때문에 show.erb는 없앤다. 
+대신 root page로 갈 수 있도록 설정
+show method
+```
+def
+	@name = params[:name]
+	@content = params[:content]
+	
+	Question.create(
+		name: @name,
+		content: @content
+	)
+	redirect_to'/'
+end
+```
+* 질문자가 작성한 질문들이 계속 보여지도록 한다.
+DB에 저장된 값들을 받아올 수 있도록 한다.
+index method
+```
+def
+	@questions = Question.all
+end
+```
+* 테이블을 불러와서, 그 값들을 quesions 변수에 저장
+
+#### Views
+
+index.erb
+```
+<h1>fake-asked에 오신걸 환영합니다.</h1>
+<p>질문을 작성해주세요.</p>
+
+<form action="/question/show">
+    작성자:<input type="text" name="name"><br/>
+    질문:<input type="text" name="content"><br/>
+    <input type="submit" value="질문하기">
+</form>
+
+<!--<%#=@quiestions%>-->
+<% @questions.each do |q| %>
+    <p>작성자:<%=q.name%></p>
+    <p>질문내용:<%=q.content%></p>
+    <hr>
+<% end %>
+```
 
 
-  * asked를 Homepage 구성을 위한 method 정의
 
+* asked를 Homepage 구성을 위한 method 정의
+```
+def show
+	@name = params[:name]
+	@question = params[:question]
+	
+	Question.create(
+	name: @name,
+	question: @question
+	)
+end
+```
     ```
      def index
 
