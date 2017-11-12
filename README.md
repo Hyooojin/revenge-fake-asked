@@ -133,7 +133,8 @@ Fake Asked Homepage
 ##Basic Web Site
 * User에게 질문을 입력받는다.
 * 질문을 입력한 후, 질문자에게 질문자의 질문과 이름을 보여지게 한다.
-#### Routing
+#### Basic Routing
+
 * 라우트 설정
 기본적으로 순서는 이러하다. <br/> 
 (1) routes.rb에서 라우팅을 한다.<br/>
@@ -148,7 +149,7 @@ Fake Asked Homepage
 ```
 root를 설정하고, index와 show가 정의되어 있는 것을 확인<br/>
 
-#### Methods
+#### Basic Methods
 * method 정의
 method를 정의한다
 ```
@@ -172,7 +173,7 @@ def show
 	@question = params[:question]
 end
 ```
-#### Views
+#### Basic Views
 * index.erb
 ```
 <h1>fake-asked에 오신걸 환영합니다.</h1>
@@ -194,7 +195,7 @@ end
 * User에게 입력받은 질문을 Database에 저장할 수 있도록 한다.
 * 입력받은 값을 첫번째 root페이지에 계속 확인할 수 있도록 한다.
 
-#### Modles
+#### DB Modles
 * Question 테이블 생성
 ```
 $ rails g model question
@@ -219,11 +220,11 @@ $ rake db:maigrate
   end
 ```
 
-#### Routing
+#### DB Routing
 * 라우팅은 변화 없다.
 index, show
 
-#### Methods
+#### DB Methods
 * 질문자가 입력한 질문들을 데이터 베이스에 저장한다.
 * 받아 온 값들을 각각 컬럼의 row에 저장될 수 있도록 한다.
 * root page에서 입력받은 값을 확인할 수 있기 때문에 show.erb는 없앤다. 
