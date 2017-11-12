@@ -41,8 +41,8 @@ MVC Architecture
 
 Revenge Create a web site
 ==============
-### Preferences
-* Gemfile Settings
+## Preferences
+### Gemfile Settings
   * Gemfile에 gem을 install하여 기본적인 환경을 set-up 한다. 
   ```
   gem 'rails_db'
