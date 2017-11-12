@@ -1,0 +1,17 @@
+<h1>fake-asked에 오신걸 환영합니다.</h1>
+<p>질문을 작성해주세요.</p>
+
+<form action="/question/show">
+    작성자:<input type="text" name="name"><br/>
+    질문:<input type="text" name="content"><br/>
+    <input type="submit" value="질문하기">
+</form>
+
+<!--<%#=@quiestions%>-->
+<% @questions.each do |q| %>
+    <p>작성자:<%=q.name%></p>
+    <p>질문내용:<%=q.content%></p>
+    <hr>
+<% end %>
+
+
