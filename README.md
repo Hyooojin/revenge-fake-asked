@@ -3,7 +3,14 @@
 Table of contents
 ==============
 * [Rails](#rails)
-* [MVC 아키텍쳐](#mvc-architecture )
+* [MVC Architecture](#mvc-architecture )
+	* models
+	* Views
+	* Controllers
+* [Create a FAKE asked site REVENGE](create-a-fake-asked-site-revenge)
+	* [Preferences](preferences)
+		* [Gemfile Settings](gemfile-settings)
+		* [Controller Settings](controller-settings)
 
 ### Rails
 레일즈는 루비 언어로 작성된 웹 어플리케이션 프레임워크이다.  <br/>
@@ -11,7 +18,7 @@ Table of contents
 [레일즈 시작하기 참고사이트](https://rubykr.github.io/rails_guides/getting_started.html)
 <br/><br/>
 
-### MVC 아키텍쳐
+### MVC Architecture
 레일즈의 중심에는 MVC 라고 불리는 모델, 뷰, 컨트롤러 아키텍처가 있다.
 * Models
   : 어플리케이션의 데이터를 다루는 규칙을 의미
@@ -30,9 +37,10 @@ Table of contents
   * Controller는 웹브라우저의 요청을 받아서, 모델을 통해서 데이터를 조회하여, 출력을 위해 뷰에게 데이터를 넘겨준다.
     <br/><br/>
 
-### 임시로 asked 사이트 만들기 revenge!! 
-#### 환경설치
-* Gemfile 설정
+Create a FAKE asked site REVENGE
+==============
+### Preferences
+* Gemfile Settings
   * Gemfile에 gem을 install하여 기본적인 환경을 set-up 한다. 
   ```
   gem 'rails_db'
@@ -48,7 +56,7 @@ Table of contents
   ```
 
   ```
-* 컨트롤러 설치
+* Controller Settings
   * controller 설정
   ```
   $ rails g controller question index show
