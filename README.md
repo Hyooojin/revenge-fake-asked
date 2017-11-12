@@ -15,14 +15,14 @@ Table of contents
 		* [Model Settings](#modle-settings)
 * [Fake Asked Homepage](#fake-asked-homepage)
 	* [Basic Web Site](#basic-web-site)
-		* [Routing](#routing)
-		* [Methods](#methods)
-		* [Views](#views)
+		* [Basic Routing](#basic-routing)
+		* [Basic Methods](#basic-methods)
+		* [Basic Views](#basic-views)
 	* [Use DataBase](#use-database)
-	* 	* [Models](#models)
-		* [Routing](#routing)
-		* [Methods](#methods)
-		* [Views](#views)
+	 	* [DB Models](#db-models)
+		* [DB Routing](#db-routing)
+		* [DB Methods](#db-methods)
+		* [DB Views](#db-views)
 
 Rails
 =======
