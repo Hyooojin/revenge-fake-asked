@@ -1,5 +1,10 @@
 # Rails를 이용해 asked 홈페이지 만들어보기 Revenge!!!
 
+Table of contents
+==============
+* [Rails](#rails)
+* [MVC 아키텍쳐](#mvc-architecture )
+
 ### Rails
 레일즈는 루비 언어로 작성된 웹 어플리케이션 프레임워크이다.  <br/>
 레일즈는 모든 개발자가 개발을 시작 할 때 필요한 초기 준비나 가정들을 쉽게 만들 수 있는 도구를 제공하여, 웹 어플리케이션 프로그래밍을 더 쉽게 만들 수 있도록 설계되어 있다. <br/>
@@ -25,82 +30,117 @@
   * Controller는 웹브라우저의 요청을 받아서, 모델을 통해서 데이터를 조회하여, 출력을 위해 뷰에게 데이터를 넘겨준다.
     <br/><br/>
 
-### 임시로 asked 사이트 만들기
-* 환경설치
+### 임시로 asked 사이트 만들기 revenge!! 
+#### 환경설치
+* Gemfile 설정
+  * Gemfile에 gem을 install하여 기본적인 환경을 set-up 한다. 
+  ```
+  gem 'rails_db'
+  gem 'awesome_print'
+  gem 'pry-rails'
+  ```
 
-  * 컨트롤러 설치
-    * $ rails g controller question<br/>
+  *  새로운 gem을 설치한 후, 다음 명령문으로 새로운 환경을 set-up 해준다.
+
+    ```
+    $ bundle install
+    ```
+  ```
+
+  ```
+* 컨트롤러 설치
+  * controller 설정
+  ```
+  $ rails g controller question index show
+  ```
+  index, show가 routes.rb에 저절로 설정<br/>
+  veiw에는 index.erb와 show.erb가 생성<br/>
+  controller에는 index, show 메소드가 정의된다.
+
     * config에 생성된 routes.rb를 확인
       이곳에서 **라우팅**을 한다. 
       <br/>
-    * views의 입력한 question 확인
-       입력한 이름(이곳에서는 question)으로, 폴더가 생성된 것을 볼 수 있고, 이곳에 view파일들을 작성 
-  * 모델 설치
-    * rails g moder questionr<br/>
-
-    * db의 migrate에 생겨난 create_questions.rb에 칼럼 정의<br/>
-      t.[데이터타입] :컬럼명<br/>
-      예시) t.string :name<br/>
-      ```ruby
-      class CreateQuestions < ActiveRecord::Migration
-        def change
-          create_table :questions do |t|
-            
-            # 추가 -----
-            t.string :name
-            t.string :question
-            # ----
-            t.timestamps null: false
-          end
-        end
-      end
+      기본root를 index로 설정
+      ```
+      root 'question#index'
+      ```
+        get 'question/index'
+        get 'question/show'
+      ```
+      다른 index와 show는 이런식으로 라우팅 된다. <br/>
+      이후에 정의되는 method들은 수동으로 추가!
       ```
 
-      저장 후, 다음 명령문을 실행<br/> 
+  * views의 question폴더 확인
+    * controller를 만들 때 입력한 question으로, 폴더가 생성된 것을 볼 수 있고, index와 show veiw가 생성되어 있는 것을 확인 할 수 있다. <br/><br/>
 
-    * 다음 명령문을 실행하면 table을 생성한다. 
+* 모델 설치
+  * model 설정
+   ```
+   $ rails g moder questionr
+   ```
+   * db의 migrate에 생겨난 create_questions.rb가 생성되었는지 확인 후, 칼럼 정의<br/>
+   * 칼럼 정의
+  ```
+  t.string :name
+  t.stirng :content
+  ```
+  * name과 content라는 col을 정의하였다. 
 
-      ```$ rake db:migrate```
+  ```
+  create_table "questions", force: :cascade do |t|
+    	t.string   "name"
+    	t.string   "content"
+    	t.datetime "created_at", null: false
+    	t.datetime "updated_at", null: false
+  	end
+  ```
+  * 다음 명령문을 입력한 해 table을 생성 후, 생성된 스키마를 schema.rb에서 확인
+  ```
+  rake db:migrate
+  ```
+  * Table에는 기본적으로 제공되는 id칼럼과 name, content, created_at, updated_at 총 5칼럼이 생성되게 된다. <br/>
+    즉, 2개의 컬럼을 만들었지만, 5개의 컬럼을 이용할 수 있게된다.
+    <br/><br/>
 
-      <br/>
 
-    * db에 schema.rb를 확인 
-      새로운 컬럼을 추가한 Schema가 생성된 것을 확인 할 수 있다. 
-      <br/><br/>
+기본적인 설치작업이 끝나면 본격적으로 Website를 구현한다. 
+
 
 * 라우트 설정
   * 기본적으로 순서는 이러하다. <br/> 
-    : routes.rb에서 라우팅을 한 후, question_controller.rb에서 method를 정의한다. 그 후, view파일을 만들면 web이 동작하게 된다. 
+    (1) routes.rb에서 라우팅을 한다.<br/>
+    (2) question_controller.rb에서 method를 정의한다. <br/>
+    (3) 그 후, view파일을 만들면 web이 동작하게 된다.<br/>
+    <br/>
+    ```
+    	  root 'question#index'
 
-  * routes 설정
+    	  get 'question/index'
 
-    ``````
-    root 'question#index'
-      
-      get 'question/index'
-
-      get 'question/show'
-
-      get 'question/sign_up'
-      
-      get 'question/sign_up_process'
-      
-      get 'question/login'
-      
-      get 'question/login_process'
-      
-      get 'question/logout'
-    ``````
+    	  get 'question/show'
+    ```
+    root를 설정하고, index와 show가 정의되어 있는 것을 확인
 
 * method 정의
   * method를 정의한다
-    ```
-    def # 메소드 이름
-    # 메소드 정의
-    end
-    ```
+  ```
+  def index
+  end
+
+  def show
+  end
+
+  ```
+  * index와 show안에 method 내용을 정의한다.
+  * index method
+    * user에게 입력받은 값을 보여준다. 
+    * ​
+  * show method
+
 
   * asked를 Homepage 구성을 위한 method 정의
+
     ```
      def index
 
