@@ -4,40 +4,42 @@ Table of contents
 ==============
 * [Rails](#rails)
 * [MVC Architecture](#mvc-architecture )
-	* models
-	* Views
-	* Controllers
-* [Create a FAKE asked site REVENGE](create-a-fake-asked-site-revenge)
-	* [Preferences](preferences)
-		* [Gemfile Settings](gemfile-settings)
-		* [Controller Settings](controller-settings)
+	* [models](#models)
+	* [Views](#views)
+	* [Controllers](#controllers)
+* [Revenge Create a web site](#revenge-create-a-web-site)
+	* [Preferences](#preferences)
+		* [Gemfile Settings](#gemfile-settings)
+		* [Controller Settings](#controller-settings)
 
-### Rails
+Rails
+=======
 레일즈는 루비 언어로 작성된 웹 어플리케이션 프레임워크이다.  <br/>
 레일즈는 모든 개발자가 개발을 시작 할 때 필요한 초기 준비나 가정들을 쉽게 만들 수 있는 도구를 제공하여, 웹 어플리케이션 프로그래밍을 더 쉽게 만들 수 있도록 설계되어 있다. <br/>
 [레일즈 시작하기 참고사이트](https://rubykr.github.io/rails_guides/getting_started.html)
 <br/><br/>
 
-### MVC Architecture
+MVC Architecture
+=================
 레일즈의 중심에는 MVC 라고 불리는 모델, 뷰, 컨트롤러 아키텍처가 있다.
-* Models
+###Models
   : 어플리케이션의 데이터를 다루는 규칙을 의미
   * Modle은 데이터 베이스 테이블과 상호 작용하는 규칙을 관리
   * 데이터 베이스의 하나의 테이블은 어플리케이션의 하나의 모델과 대응
 
 
-* Views
+###Views
   : 어플리케이션 유저 인터페이스를 의미
   * View는 주로 데이터 표현에 관련된 **루비 코드가 삽입되어 있는 HTML** 파일이다.
   * 데이터를 웹 브라우저나 다른 기기에서 데이터를 제공하는 일을 담당
 
 
-* Controllers
+###Controllers
   : 모델과 뷰를 **연결**하는 역할
   * Controller는 웹브라우저의 요청을 받아서, 모델을 통해서 데이터를 조회하여, 출력을 위해 뷰에게 데이터를 넘겨준다.
     <br/><br/>
 
-Create a FAKE asked site REVENGE
+Revenge Create a web site
 ==============
 ### Preferences
 * Gemfile Settings
